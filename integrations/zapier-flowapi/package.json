@@ -1,0 +1,13 @@
+{
+  "name": "zapier-flowapi",
+  "version": "1.0.0",
+  "description": "Flow API \u2014 WhatsApp API for Zapier",
+  "main": "index.js",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "zapier-platform-core": "19.2.0"
+  }
+}
