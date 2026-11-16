@@ -1,0 +1,47 @@
+{
+  "name": "flowapi",
+  "version": "1.0.0",
+  "description": "Official JavaScript SDK for Flow API (flowapi.pro): send and receive WhatsApp messages over HTTP. Green API compatible. Zero dependencies.",
+  "type": "module",
+  "main": "./sdk/js/index.js",
+  "types": "./sdk/js/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./sdk/js/index.d.ts",
+      "default": "./sdk/js/index.js"
+    }
+  },
+  "files": [
+    "sdk/js/index.js",
+    "sdk/js/index.d.ts"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "whatsapp",
+    "whatsapp-api",
+    "whatsapp-bot",
+    "flowapi",
+    "flow-api",
+    "green-api",
+    "green-api-alternative",
+    "n8n",
+    "make",
+    "zapier",
+    "mcp",
+    "ai-agent"
+  ],
+  "homepage": "https://flowapi.pro",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flowapi-pro/flowapi.git"
+  },
+  "bugs": {
+    "url": "https://github.com/flowapi-pro/flowapi/issues",
+    "email": "contact@flowapi.pro"
+  },
+  "author": "Flow API <contact@flowapi.pro> (https://flowapi.pro)",
+  "license": "MIT",
+  "private": false
+}
