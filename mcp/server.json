@@ -1,0 +1,20 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "pro.flowapi/whatsapp",
+  "title": "Flow API (flowapi.pro) WhatsApp",
+  "description": "WhatsApp on your own number: read new messages, reply, send files, polls, check numbers.",
+  "version": "1.0.0",
+  "websiteUrl": "https://flowapi.pro/integrations/claude",
+  "repository": { "url": "https://github.com/flowapi-pro/flowapi", "source": "github", "subfolder": "mcp" },
+  "icons": [{ "src": "https://flowapi.pro/favicon.svg", "mimeType": "image/svg+xml" }],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://flowapi.pro/mcp/{idInstance}/{apiTokenInstance}",
+      "variables": {
+        "idInstance": { "description": "Instance ID of your WhatsApp number (Flow API console, Credentials tab)", "isRequired": true },
+        "apiTokenInstance": { "description": "API token of that number (Flow API console, Credentials tab)", "isRequired": true, "isSecret": true }
+      }
+    }
+  ]
+}
