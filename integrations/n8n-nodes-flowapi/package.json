@@ -1,0 +1,47 @@
+{
+  "name": "n8n-nodes-flowapi",
+  "version": "1.0.0",
+  "description": "Flow API \u2014 WhatsApp API for n8n: send messages, files, polls and trigger workflows on incoming WhatsApp messages.",
+  "keywords": [
+    "n8n-community-node-package",
+    "whatsapp",
+    "flowapi",
+    "green-api",
+    "whatsapp-api"
+  ],
+  "license": "MIT",
+  "homepage": "https://flowapi.pro/integrations",
+  "author": {
+    "name": "Flow API",
+    "email": "contact@flowapi.pro"
+  },
+  "main": "index.js",
+  "scripts": {
+    "build": "npm i --no-save n8n-workflow typescript@5.4 && tsc && cp nodes/FlowApi/*.svg dist/nodes/FlowApi/"
+  },
+  "files": [
+    "dist"
+  ],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [
+      "dist/credentials/FlowApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/FlowApi/FlowApi.node.js",
+      "dist/nodes/FlowApi/FlowApiTrigger.node.js"
+    ]
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  },
+  "peerDependenciesMeta": {
+    "n8n-workflow": {
+      "optional": true
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flowapi-pro/flowapi.git", "directory": "integrations/n8n-nodes-flowapi"
+  }
+}
