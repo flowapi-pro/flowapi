@@ -1,0 +1,1189 @@
+{
+ "openapi": "3.1.0",
+ "info": {
+  "title": "Flow API \u2014 WhatsApp API",
+  "version": "1.0.0",
+  "description": "Green-API-compatible WhatsApp HTTP API. Every request is /waInstance{idInstance}/{method}/{apiTokenInstance}. Get your idInstance and apiTokenInstance in the Flow API console.",
+  "contact": {
+   "name": "Flow API",
+   "url": "https://flowapi.pro",
+   "email": "contact@flowapi.pro"
+  },
+  "termsOfService": "https://flowapi.pro/legal/terms"
+ },
+ "servers": [
+  {
+   "url": "https://flowapi.pro"
+  }
+ ],
+ "paths": {
+  "/waInstance{idInstance}/getStateInstance/{apiTokenInstance}": {
+   "get": {
+    "operationId": "getStateInstance",
+    "summary": "Connection state of the number",
+    "tags": [
+     "Account"
+    ],
+    "parameters": [
+     {
+      "$ref": "#/components/parameters/idInstance"
+     },
+     {
+      "$ref": "#/components/parameters/apiTokenInstance"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "stateInstance": {
+           "type": "string",
+           "enum": [
+            "authorized",
+            "notAuthorized",
+            "starting",
+            "blocked"
+           ]
+          }
+         }
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Wrong idInstance or apiTokenInstance"
+     },
+     "402": {
+      "description": "Trial ended or number not covered by the plan"
+     }
+    }
+   }
+  },
+  "/waInstance{idInstance}/getSettings/{apiTokenInstance}": {
+   "get": {
+    "operationId": "getSettings",
+    "summary": "Instance settings",
+    "tags": [
+     "Account"
+    ],
+    "parameters": [
+     {
+      "$ref": "#/components/parameters/idInstance"
+     },
+     {
+      "$ref": "#/components/parameters/apiTokenInstance"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Wrong idInstance or apiTokenInstance"
+     },
+     "402": {
+      "description": "Trial ended or number not covered by the plan"
+     }
+    }
+   }
+  },
+  "/waInstance{idInstance}/setSettings/{apiTokenInstance}": {
+   "post": {
+    "operationId": "setSettings",
+    "summary": "Update settings (webhook URL, notification toggles)",
+    "tags": [
+     "Account"
+    ],
+    "parameters": [
+     {
+      "$ref": "#/components/parameters/idInstance"
+     },
+     {
+      "$ref": "#/components/parameters/apiTokenInstance"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Wrong idInstance or apiTokenInstance"
+     },
+     "402": {
+      "description": "Trial ended or number not covered by the plan"
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "webhookUrl": {
+          "type": "string"
+         },
+         "webhookUrlToken": {
+          "type": "string"
+         },
+         "incomingWebhook": {
+          "type": "string",
+          "enum": [
+           "yes",
+           "no"
+          ]
+         },
+         "outgoingWebhook": {
+          "type": "string",
+          "enum": [
+           "yes",
+           "no"
+          ]
+         },
+         "stateWebhook": {
+          "type": "string",
+          "enum": [
+           "yes",
+           "no"
+          ]
+         }
+        },
+        "required": []
+       }
+      }
+     }
+    }
+   }
+  },
+  "/waInstance{idInstance}/sendMessage/{apiTokenInstance}": {
+   "post": {
+    "operationId": "sendMessage",
+    "summary": "Send a text message",
+    "tags": [
+     "Sending"
+    ],
+    "parameters": [
+     {
+      "$ref": "#/components/parameters/idInstance"
+     },
+     {
+      "$ref": "#/components/parameters/apiTokenInstance"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "idMessage": {
+           "type": "string"
+          }
+         }
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Wrong idInstance or apiTokenInstance"
+     },
+     "402": {
+      "description": "Trial ended or number not covered by the plan"
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "chatId": {
+          "type": "string",
+          "description": "Phone with country code + '@c.us' (e.g. 972501234567@c.us) or group id '\u2026@g.us'",
+          "example": "972501234567@c.us"
+         },
+         "message": {
+          "type": "string"
+         },
+         "quotedMessageId": {
+          "type": "string"
+         }
+        },
+        "required": [
+         "chatId",
+         "message"
+        ]
+       }
+      }
+     }
+    }
+   }
+  },
+  "/waInstance{idInstance}/sendFileByUrl/{apiTokenInstance}": {
+   "post": {
+    "operationId": "sendFileByUrl",
+    "summary": "Send a file from a URL",
+    "tags": [
+     "Sending"
+    ],
+    "parameters": [
+     {
+      "$ref": "#/components/parameters/idInstance"
+     },
+     {
+      "$ref": "#/components/parameters/apiTokenInstance"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "idMessage": {
+           "type": "string"
+          }
+         }
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Wrong idInstance or apiTokenInstance"
+     },
+     "402": {
+      "description": "Trial ended or number not covered by the plan"
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "chatId": {
+          "type": "string",
+          "description": "Phone with country code + '@c.us' (e.g. 972501234567@c.us) or group id '\u2026@g.us'",
+          "example": "972501234567@c.us"
+         },
+         "urlFile": {
+          "type": "string"
+         },
+         "fileName": {
+          "type": "string"
+         },
+         "caption": {
+          "type": "string"
+         }
+        },
+        "required": [
+         "chatId",
+         "urlFile",
+         "fileName"
+        ]
+       }
+      }
+     }
+    }
+   }
+  },
+  "/waInstance{idInstance}/sendLocation/{apiTokenInstance}": {
+   "post": {
+    "operationId": "sendLocation",
+    "summary": "Send a location",
+    "tags": [
+     "Sending"
+    ],
+    "parameters": [
+     {
+      "$ref": "#/components/parameters/idInstance"
+     },
+     {
+      "$ref": "#/components/parameters/apiTokenInstance"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "idMessage": {
+           "type": "string"
+          }
+         }
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Wrong idInstance or apiTokenInstance"
+     },
+     "402": {
+      "description": "Trial ended or number not covered by the plan"
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "chatId": {
+          "type": "string",
+          "description": "Phone with country code + '@c.us' (e.g. 972501234567@c.us) or group id '\u2026@g.us'",
+          "example": "972501234567@c.us"
+         },
+         "latitude": {
+          "type": "number"
+         },
+         "longitude": {
+          "type": "number"
+         },
+         "nameLocation": {
+          "type": "string"
+         },
+         "address": {
+          "type": "string"
+         }
+        },
+        "required": [
+         "chatId",
+         "latitude",
+         "longitude"
+        ]
+       }
+      }
+     }
+    }
+   }
+  },
+  "/waInstance{idInstance}/sendContact/{apiTokenInstance}": {
+   "post": {
+    "operationId": "sendContact",
+    "summary": "Send a contact card",
+    "tags": [
+     "Sending"
+    ],
+    "parameters": [
+     {
+      "$ref": "#/components/parameters/idInstance"
+     },
+     {
+      "$ref": "#/components/parameters/apiTokenInstance"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "idMessage": {
+           "type": "string"
+          }
+         }
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Wrong idInstance or apiTokenInstance"
+     },
+     "402": {
+      "description": "Trial ended or number not covered by the plan"
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "chatId": {
+          "type": "string",
+          "description": "Phone with country code + '@c.us' (e.g. 972501234567@c.us) or group id '\u2026@g.us'",
+          "example": "972501234567@c.us"
+         },
+         "contact": {
+          "type": "object",
+          "properties": {
+           "phoneContact": {
+            "type": "integer"
+           },
+           "firstName": {
+            "type": "string"
+           },
+           "lastName": {
+            "type": "string"
+           },
+           "company": {
+            "type": "string"
+           }
+          }
+         }
+        },
+        "required": [
+         "chatId",
+         "contact"
+        ]
+       }
+      }
+     }
+    }
+   }
+  },
+  "/waInstance{idInstance}/sendPoll/{apiTokenInstance}": {
+   "post": {
+    "operationId": "sendPoll",
+    "summary": "Send a poll",
+    "tags": [
+     "Sending"
+    ],
+    "parameters": [
+     {
+      "$ref": "#/components/parameters/idInstance"
+     },
+     {
+      "$ref": "#/components/parameters/apiTokenInstance"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "idMessage": {
+           "type": "string"
+          }
+         }
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Wrong idInstance or apiTokenInstance"
+     },
+     "402": {
+      "description": "Trial ended or number not covered by the plan"
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "chatId": {
+          "type": "string",
+          "description": "Phone with country code + '@c.us' (e.g. 972501234567@c.us) or group id '\u2026@g.us'",
+          "example": "972501234567@c.us"
+         },
+         "message": {
+          "type": "string"
+         },
+         "options": {
+          "type": "array",
+          "items": {
+           "type": "object",
+           "properties": {
+            "optionName": {
+             "type": "string"
+            }
+           }
+          }
+         },
+         "multipleAnswers": {
+          "type": "boolean"
+         }
+        },
+        "required": [
+         "chatId",
+         "message",
+         "options"
+        ]
+       }
+      }
+     }
+    }
+   }
+  },
+  "/waInstance{idInstance}/sendTyping/{apiTokenInstance}": {
+   "post": {
+    "operationId": "sendTyping",
+    "summary": "Show 'typing\u2026'",
+    "tags": [
+     "Sending"
+    ],
+    "parameters": [
+     {
+      "$ref": "#/components/parameters/idInstance"
+     },
+     {
+      "$ref": "#/components/parameters/apiTokenInstance"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Wrong idInstance or apiTokenInstance"
+     },
+     "402": {
+      "description": "Trial ended or number not covered by the plan"
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "chatId": {
+          "type": "string",
+          "description": "Phone with country code + '@c.us' (e.g. 972501234567@c.us) or group id '\u2026@g.us'",
+          "example": "972501234567@c.us"
+         }
+        },
+        "required": [
+         "chatId"
+        ]
+       }
+      }
+     }
+    }
+   }
+  },
+  "/waInstance{idInstance}/receiveNotification/{apiTokenInstance}": {
+   "get": {
+    "operationId": "receiveNotification",
+    "summary": "Take the next incoming notification from the queue (long-poll)",
+    "tags": [
+     "Receiving"
+    ],
+    "parameters": [
+     {
+      "$ref": "#/components/parameters/idInstance"
+     },
+     {
+      "$ref": "#/components/parameters/apiTokenInstance"
+     },
+     {
+      "name": "receiveTimeout",
+      "in": "query",
+      "schema": {
+       "type": "integer",
+       "minimum": 1,
+       "maximum": 25
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Wrong idInstance or apiTokenInstance"
+     },
+     "402": {
+      "description": "Trial ended or number not covered by the plan"
+     }
+    }
+   }
+  },
+  "/waInstance{idInstance}/lastIncomingMessages/{apiTokenInstance}": {
+   "get": {
+    "operationId": "lastIncomingMessages",
+    "summary": "Incoming messages in the last N minutes",
+    "tags": [
+     "Journals"
+    ],
+    "parameters": [
+     {
+      "$ref": "#/components/parameters/idInstance"
+     },
+     {
+      "$ref": "#/components/parameters/apiTokenInstance"
+     },
+     {
+      "name": "minutes",
+      "in": "query",
+      "schema": {
+       "type": "integer",
+       "default": 1440
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Wrong idInstance or apiTokenInstance"
+     },
+     "402": {
+      "description": "Trial ended or number not covered by the plan"
+     }
+    }
+   }
+  },
+  "/waInstance{idInstance}/lastOutgoingMessages/{apiTokenInstance}": {
+   "get": {
+    "operationId": "lastOutgoingMessages",
+    "summary": "Outgoing messages in the last N minutes",
+    "tags": [
+     "Journals"
+    ],
+    "parameters": [
+     {
+      "$ref": "#/components/parameters/idInstance"
+     },
+     {
+      "$ref": "#/components/parameters/apiTokenInstance"
+     },
+     {
+      "name": "minutes",
+      "in": "query",
+      "schema": {
+       "type": "integer",
+       "default": 1440
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Wrong idInstance or apiTokenInstance"
+     },
+     "402": {
+      "description": "Trial ended or number not covered by the plan"
+     }
+    }
+   }
+  },
+  "/waInstance{idInstance}/getChatHistory/{apiTokenInstance}": {
+   "post": {
+    "operationId": "getChatHistory",
+    "summary": "Messages in a chat",
+    "tags": [
+     "Journals"
+    ],
+    "parameters": [
+     {
+      "$ref": "#/components/parameters/idInstance"
+     },
+     {
+      "$ref": "#/components/parameters/apiTokenInstance"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Wrong idInstance or apiTokenInstance"
+     },
+     "402": {
+      "description": "Trial ended or number not covered by the plan"
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "chatId": {
+          "type": "string",
+          "description": "Phone with country code + '@c.us' (e.g. 972501234567@c.us) or group id '\u2026@g.us'",
+          "example": "972501234567@c.us"
+         },
+         "count": {
+          "type": "integer",
+          "default": 50
+         }
+        },
+        "required": [
+         "chatId"
+        ]
+       }
+      }
+     }
+    }
+   }
+  },
+  "/waInstance{idInstance}/readChat/{apiTokenInstance}": {
+   "post": {
+    "operationId": "readChat",
+    "summary": "Mark a chat as read",
+    "tags": [
+     "Service"
+    ],
+    "parameters": [
+     {
+      "$ref": "#/components/parameters/idInstance"
+     },
+     {
+      "$ref": "#/components/parameters/apiTokenInstance"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Wrong idInstance or apiTokenInstance"
+     },
+     "402": {
+      "description": "Trial ended or number not covered by the plan"
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "chatId": {
+          "type": "string",
+          "description": "Phone with country code + '@c.us' (e.g. 972501234567@c.us) or group id '\u2026@g.us'",
+          "example": "972501234567@c.us"
+         }
+        },
+        "required": [
+         "chatId"
+        ]
+       }
+      }
+     }
+    }
+   }
+  },
+  "/waInstance{idInstance}/checkWhatsapp/{apiTokenInstance}": {
+   "post": {
+    "operationId": "checkWhatsapp",
+    "summary": "Check if a phone number has WhatsApp",
+    "tags": [
+     "Service"
+    ],
+    "parameters": [
+     {
+      "$ref": "#/components/parameters/idInstance"
+     },
+     {
+      "$ref": "#/components/parameters/apiTokenInstance"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object",
+         "properties": {
+          "existsWhatsapp": {
+           "type": "boolean"
+          }
+         }
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Wrong idInstance or apiTokenInstance"
+     },
+     "402": {
+      "description": "Trial ended or number not covered by the plan"
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "phoneNumber": {
+          "type": "integer"
+         }
+        },
+        "required": [
+         "phoneNumber"
+        ]
+       }
+      }
+     }
+    }
+   }
+  },
+  "/waInstance{idInstance}/getContactInfo/{apiTokenInstance}": {
+   "post": {
+    "operationId": "getContactInfo",
+    "summary": "Contact details",
+    "tags": [
+     "Service"
+    ],
+    "parameters": [
+     {
+      "$ref": "#/components/parameters/idInstance"
+     },
+     {
+      "$ref": "#/components/parameters/apiTokenInstance"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Wrong idInstance or apiTokenInstance"
+     },
+     "402": {
+      "description": "Trial ended or number not covered by the plan"
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "chatId": {
+          "type": "string",
+          "description": "Phone with country code + '@c.us' (e.g. 972501234567@c.us) or group id '\u2026@g.us'",
+          "example": "972501234567@c.us"
+         }
+        },
+        "required": [
+         "chatId"
+        ]
+       }
+      }
+     }
+    }
+   }
+  },
+  "/waInstance{idInstance}/getContacts/{apiTokenInstance}": {
+   "get": {
+    "operationId": "getContacts",
+    "summary": "All contacts",
+    "tags": [
+     "Service"
+    ],
+    "parameters": [
+     {
+      "$ref": "#/components/parameters/idInstance"
+     },
+     {
+      "$ref": "#/components/parameters/apiTokenInstance"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Wrong idInstance or apiTokenInstance"
+     },
+     "402": {
+      "description": "Trial ended or number not covered by the plan"
+     }
+    }
+   }
+  },
+  "/waInstance{idInstance}/createGroup/{apiTokenInstance}": {
+   "post": {
+    "operationId": "createGroup",
+    "summary": "Create a group",
+    "tags": [
+     "Groups"
+    ],
+    "parameters": [
+     {
+      "$ref": "#/components/parameters/idInstance"
+     },
+     {
+      "$ref": "#/components/parameters/apiTokenInstance"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Wrong idInstance or apiTokenInstance"
+     },
+     "402": {
+      "description": "Trial ended or number not covered by the plan"
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "groupName": {
+          "type": "string"
+         },
+         "chatIds": {
+          "type": "array",
+          "items": {
+           "type": "string",
+           "description": "Phone with country code + '@c.us' (e.g. 972501234567@c.us) or group id '\u2026@g.us'",
+           "example": "972501234567@c.us"
+          }
+         }
+        },
+        "required": [
+         "groupName",
+         "chatIds"
+        ]
+       }
+      }
+     }
+    }
+   }
+  },
+  "/waInstance{idInstance}/getGroupData/{apiTokenInstance}": {
+   "post": {
+    "operationId": "getGroupData",
+    "summary": "Group details",
+    "tags": [
+     "Groups"
+    ],
+    "parameters": [
+     {
+      "$ref": "#/components/parameters/idInstance"
+     },
+     {
+      "$ref": "#/components/parameters/apiTokenInstance"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Wrong idInstance or apiTokenInstance"
+     },
+     "402": {
+      "description": "Trial ended or number not covered by the plan"
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "groupId": {
+          "type": "string"
+         }
+        },
+        "required": [
+         "groupId"
+        ]
+       }
+      }
+     }
+    }
+   }
+  },
+  "/waInstance{idInstance}/addGroupParticipant/{apiTokenInstance}": {
+   "post": {
+    "operationId": "addGroupParticipant",
+    "summary": "Add a group member",
+    "tags": [
+     "Groups"
+    ],
+    "parameters": [
+     {
+      "$ref": "#/components/parameters/idInstance"
+     },
+     {
+      "$ref": "#/components/parameters/apiTokenInstance"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "content": {
+       "application/json": {
+        "schema": {
+         "type": "object"
+        }
+       }
+      }
+     },
+     "401": {
+      "description": "Wrong idInstance or apiTokenInstance"
+     },
+     "402": {
+      "description": "Trial ended or number not covered by the plan"
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "properties": {
+         "groupId": {
+          "type": "string"
+         },
+         "participantChatId": {
+          "type": "string",
+          "description": "Phone with country code + '@c.us' (e.g. 972501234567@c.us) or group id '\u2026@g.us'",
+          "example": "972501234567@c.us"
+         }
+        },
+        "required": [
+         "groupId",
+         "participantChatId"
+        ]
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "components": {
+  "parameters": {
+   "idInstance": {
+    "name": "idInstance",
+    "in": "path",
+    "required": true,
+    "schema": {
+     "type": "string"
+    },
+    "description": "Your instance ID (10 digits)"
+   },
+   "apiTokenInstance": {
+    "name": "apiTokenInstance",
+    "in": "path",
+    "required": true,
+    "schema": {
+     "type": "string"
+    },
+    "description": "Your instance API token"
+   }
+  }
+ }
+}
